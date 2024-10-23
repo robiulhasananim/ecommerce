@@ -1,11 +1,31 @@
-from rest_framework import viewsets
-from .models import Order,Payment
-from .serializers import OrderSerializer,PaymentSerializer
+from rest_framework import generics
+from .models import Payment, Order, OrderProduct
+from .serializers import PaymentSerializer, OrderSerializer, OrderProductSerializer
 
-class OrderViewSet(viewsets.ModelViewSet):
+# Payment Views
+class PaymentListCreateView(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+class PaymentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+# Order Views
+class OrderListCreateView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-class PaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
-    serializer_class = PaymentSerializer
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+# OrderProduct Views
+class OrderProductListCreateView(generics.ListCreateAPIView):
+    queryset = OrderProduct.objects.all()
+    serializer_class = OrderProductSerializer
+
+class OrderProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderProduct.objects.all()
+    serializer_class = OrderProductSerializer
+
