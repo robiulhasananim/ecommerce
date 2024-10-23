@@ -3,8 +3,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .models import Product
 from .serializers import ProductSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class ProductListCreateView(APIView):
+    permission_classes = [IsAuthenticated]  
     def get(self, request):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -19,6 +21,7 @@ class ProductListCreateView(APIView):
 
 
 class ProductDetailView(APIView):
+    permission_classes = [IsAuthenticated] 
     def get(self, request, pk):
         try:
             product = Product.objects.get(pk=pk)
